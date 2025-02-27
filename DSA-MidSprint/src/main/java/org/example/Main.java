@@ -47,17 +47,27 @@ public class Main {
             scanner.nextLine(); // like so LOL
 
             /* =============================================================== */
-            switch (choice) {
-                case 1: // create user!
-                    if (userNum >= users.length) { // checking space for new user in the array above! if full, then breaks
-                        System.out.println("User limit has been reached!");
-                        break;
-                    }
-                    System.out.print("Enter username: "); // asks for username (either pre-made or new)
-                    String username = scanner.nextLine();
-                    users[userNum++] = new User(username); // creates new User object to be added into array
-                    System.out.println("User added!");
+            switch (choice) {                case 1: // Create user
+                if (userNum >= users.length) { // checking space for new user in the array above! if full, then breaks
+                    System.out.println("User limit has been reached!");
                     break;
+                }
+                System.out.print("Enter username: ");
+                String username = scanner.nextLine();
+
+                if (username.trim().isEmpty()) {
+                    System.out.println("Username cannot be empty."); // added validation to prevent empty users
+                    break;
+                }
+
+                if (userExists(users, username, userNum)) {
+                    System.out.println("Username already exists. Please choose a different username."); // prevents duplicate usernames
+                    break;
+                }
+
+                users[userNum++] = new User(username);
+                System.out.println("User added!"); // creates new User object to be added into array
+                break;
 
                 /* ========================= */
                 case 2: // add task
@@ -68,7 +78,7 @@ public class Main {
                         System.out.println("User not found! Make sure the username is spelled correctly.");
                         break;
                     }
-                    System.out.print("What's the task description? ");
+                    System.out.print("What's the task description? Keep short if possible: ");
                     String taskDesc = scanner.nextLine();
                     userAddTask.addTask(taskDesc); // add task to a given user's list
                     System.out.println("Added task!");
@@ -89,7 +99,7 @@ public class Main {
                     if (taskCompleted) {
                         System.out.println("Task completed! Good job.");
                     } else {
-                        System.out.println("Task not found! Ensure the task description is correct.");
+                        System.out.println("Task not found or already completed! Make sure task description is correct.");
                     }
                     break;
 
@@ -117,7 +127,17 @@ public class Main {
         }
     }
 
-    // method to help find user
+    // bonus method to check if the username already exists
+    private static boolean userExists(User[] users, String name, int userCount) {
+        for (int i = 0; i < userCount; i++) {
+            if (users[i].getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // bonus method #2 to help find user by username
     private static User findUser(User[] users, String name, int userCount) {
         for (int i = 0; i < userCount; i++) {
             if (users[i].getName().equals(name)) {
