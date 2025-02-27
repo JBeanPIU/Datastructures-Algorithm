@@ -21,7 +21,7 @@ public class User {
 
     /* ================= */
     public void addTask(String taskDesc) {
-        task.ist.addTask(taskDesc);
+        tasklist.addTask(taskDesc); // Fixed this line
     }
 
     public boolean completeTask(String taskDesc) {
