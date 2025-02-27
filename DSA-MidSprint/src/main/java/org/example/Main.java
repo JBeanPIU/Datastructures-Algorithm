@@ -23,8 +23,8 @@ public class Main {
         user1.addTask("homework");
         user1.addTask("dishes");
 
-        user2.addTask("gaming");
-        user2.addTask("jog");
+        user2.addTask("monster hunter");
+        user2.addTask("sweeping");
         user2.addTask("laundry");
 
         users[userNum++] = user1; // adds jbean
